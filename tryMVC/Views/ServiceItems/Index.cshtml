@@ -1,0 +1,33 @@
+﻿@model IEnumerable<tryMVC.Models.ServiceItemsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.serviceItemName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.serviceItemName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.serviceItemID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.serviceItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.serviceItemID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -15,20 +15,17 @@
             @Html.DisplayNameFor(model => model.customerName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.customerAddress)
+            @Html.DisplayNameFor(model => model.phoneNumber)
         </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.customerAge)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gender)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.customerEmail)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nationalityName)
-        </th>
+        
         <th></th>
     </tr>
 
@@ -38,20 +35,17 @@
             @Html.DisplayFor(modelItem => item.customerName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.customerAddress)
+            @Html.DisplayFor(modelItem => item.phoneNumber)
         </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.customerAge)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.gender)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.customerEmail)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nationalityName)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.customerID }) |
             @Html.ActionLink("Details", "Details", new { id=item.customerID }) |

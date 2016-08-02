@@ -1,0 +1,26 @@
+﻿@model tryMVC.Models.ServiceItemsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Service Items</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceItemName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.serviceItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
