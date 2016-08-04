@@ -9,9 +9,10 @@ namespace tryMVC.Models
     public class ServicesModel
     {
         [Key]
-        public int serviceID;
+        public int serviceID { get; set; }
+
         [Required(ErrorMessage ="Please enter the Service Name")]
         [Display(Name = "Service Name")]
-        public string serviceName;
+        public string serviceName { get; set; }
     }
 }

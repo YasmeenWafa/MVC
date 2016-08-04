@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My Banzeena</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -26,6 +26,8 @@
                     <li>@Html.ActionLink("Nationalities", "Index", "Nationalities")</li>
                     <li>@Html.ActionLink("Work", "About", "Home")</li>
                     <li>@Html.ActionLink("Service Items", "Index", "ServiceItems")</li>
+                    <li>@Html.ActionLink("Services", "Index", "Services")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,7 +37,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - My Banzeena</p>
         </footer>
     </div>
 
