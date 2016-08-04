@@ -214,6 +214,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NationalitiesModel.cs" />
     <Compile Include="Models\ServiceItemsModel.cs" />
+    <Compile Include="Models\ServicesModel.cs" />
+    <Compile Include="Models\WorkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
