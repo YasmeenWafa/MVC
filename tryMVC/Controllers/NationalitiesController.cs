@@ -38,7 +38,7 @@ namespace tryMVC.Controllers
         // GET: Nationalities/Create
         public ActionResult Create()
         {
-                        ViewBag.nationalityList = new SelectList(db.AllNationalities, "nationalityName", "nationalityName");
+              ViewBag.nationalityList = new SelectList(db.AllNationalities, "nationalityName", "nationalityName");
 
             return View();
         }
@@ -48,15 +48,15 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "nationalityID,nationalityName")] NationalitiesModel nationalitiesModel)
+        public ActionResult Create([Bind(Include = "nationalityID, nationalityName")] NationalitiesModel nationalitiesModel)
         {
             if (ModelState.IsValid)
             {
-                if ((db.Nationalities.Any(ac => ac.nationalityName.Equals(nationalitiesModel.nationalityName))) || !(db.AllNationalities.Any(ac => ac.nationalityName.Equals(nationalitiesModel.nationalityName))))
+                if ((db.Nationalities.Any(ac => ac.nationalityName.Equals(nationalitiesModel.nationalityName))) )
    {
                     //TODO E.g. ModelState.AddModelError
 
-                    return View("Create");
+                    return RedirectToAction("Create");
                 }
                 db.Nationalities.Add(nationalitiesModel);
                 db.SaveChanges();

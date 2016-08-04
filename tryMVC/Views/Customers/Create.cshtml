@@ -67,6 +67,9 @@
                 @Html.DropDownListFor(model => model.nationalityName, (SelectList)ViewBag.nationalityList)
           
             </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add new nationality" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "Nationalities") + "'");" />
+            </div>
         </div>
 
         <div class="form-group">
