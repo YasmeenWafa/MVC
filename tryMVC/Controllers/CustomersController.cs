@@ -38,7 +38,7 @@ namespace tryMVC.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            ViewBag.nationalityList = new SelectList(db.AllNationalities, "nationalityName", "nationalityName");
+            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
             return View();
          
         }
@@ -53,8 +53,6 @@ namespace tryMVC.Controllers
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customersModel);
-                db.SaveChanges();
-                db.Nationalities.Add(new NationalitiesModel() { nationalityName = customersModel.nationalityName });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

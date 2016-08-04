@@ -12,5 +12,8 @@ namespace tryMVC.Models
         public DbSet<AllNationalities> AllNationalities { get; set; }
 
         public DbSet<CustomersModel> Customers { get; set; }
+        public DbSet<ServiceItemsModel> ServiceItems { get; set; }
+        public DbSet<ServicesModel> Services { get; set; }
+
     }
 }
