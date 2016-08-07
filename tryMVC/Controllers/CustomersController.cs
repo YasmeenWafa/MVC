@@ -38,7 +38,7 @@ namespace tryMVC.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
+            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityID", "nationalityName");
             return View();
          
         }

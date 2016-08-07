@@ -31,12 +31,12 @@ namespace tryMVC.Models
         public string customerEmail { get; set; }
         [Display(Name = "Phone Number")]
 
-        public long phoneNumber { get; set; }
+        public int phoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your country's name")]
         [Display(Name = "Country")]
 
-        public  string nationalityName { get; set; }
+        public virtual int nationalityName { get; set; }
 
     }
 }
