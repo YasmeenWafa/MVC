@@ -10,109 +10,111 @@ using tryMVC.Models;
 
 namespace tryMVC.Controllers
 {
-    public class CustomersController : Controller
+    public class WorkController : Controller
     {
         private DBContext db = new DBContext();
 
-        // GET: Customers
+        // GET: Work
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.Work.ToList());
         }
 
-        // GET: Customers/Details/5
+        // GET: Work/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
-            if (customersModel == null)
+            WorkModel workModel = db.Work.Find(id);
+            if (workModel == null)
             {
                 return HttpNotFound();
             }
-            return View(customersModel);
+            return View(workModel);
         }
 
-        // GET: Customers/Create
+        // GET: Work/Create
         public ActionResult Create()
         {
-            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
+            ViewBag.customerList = new SelectList(db.Customers, "customerName", "customerName");
+            ViewBag.itemList = new SelectList(db.ServiceItems, "serviceItemName", "serviceItemName");
+            ViewBag.serviceList = new SelectList(db.Services, "serviceName", "serviceName");
+            
             return View();
-         
         }
 
-        // POST: Customers/Create
+        // POST: Work/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,nationalityName")] CustomersModel customersModel)
+        public ActionResult Create([Bind(Include = "workID,serviceName,itemName,customerName")] WorkModel workModel)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customersModel);
+                db.Work.Add(workModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customersModel);
+            return View(workModel);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Work/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
-            if (customersModel == null)
+            WorkModel workModel = db.Work.Find(id);
+            if (workModel == null)
             {
                 return HttpNotFound();
             }
-            return View(customersModel);
+            return View(workModel);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Work/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail")] CustomersModel customersModel)
+        public ActionResult Edit([Bind(Include = "workID,serviceName,itemName,customerName")] WorkModel workModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customersModel).State = EntityState.Modified;
+                db.Entry(workModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customersModel);
+            return View(workModel);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Work/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
-            if (customersModel == null)
+            WorkModel workModel = db.Work.Find(id);
+            if (workModel == null)
             {
                 return HttpNotFound();
             }
-            return View(customersModel);
+            return View(workModel);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Work/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CustomersModel customersModel = db.Customers.Find(id);
-            db.Customers.Remove(customersModel);
+            WorkModel workModel = db.Work.Find(id);
+            db.Work.Remove(workModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

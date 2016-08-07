@@ -36,7 +36,7 @@ namespace tryMVC.Models
         [Required(ErrorMessage = "Please enter your country's name")]
         [Display(Name = "Country")]
 
-        public virtual int nationalityName { get; set; }
+        public virtual string nationalityName { get; set; }
 
     }
 }

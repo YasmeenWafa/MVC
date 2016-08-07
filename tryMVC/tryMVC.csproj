@@ -202,6 +202,7 @@
     <Compile Include="Controllers\NationalitiesController.cs" />
     <Compile Include="Controllers\ServiceItemsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\WorkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,6 +300,11 @@
     <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Work\Create.cshtml" />
+    <Content Include="Views\Work\Delete.cshtml" />
+    <Content Include="Views\Work\Details.cshtml" />
+    <Content Include="Views\Work\Edit.cshtml" />
+    <Content Include="Views\Work\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

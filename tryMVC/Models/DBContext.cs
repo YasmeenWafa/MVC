@@ -15,5 +15,6 @@ namespace tryMVC.Models
         public DbSet<ServiceItemsModel> ServiceItems { get; set; }
         public DbSet<ServicesModel> Services { get; set; }
 
+        public DbSet<WorkModel> Work { get; set; }
     }
 }
