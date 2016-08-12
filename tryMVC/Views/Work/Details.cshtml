@@ -1,0 +1,49 @@
+﻿@model tryMVC.Models.WorkModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WorkModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.serviceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.customerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.workID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
