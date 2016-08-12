@@ -21,6 +21,9 @@
                 @Html.DropDownListFor(model => model.customerName, (SelectList)ViewBag.customerList)
 
             </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add new customer" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "Customers") + "'");" />
+            </div>
         </div>
 
         <div class="form-group">
@@ -29,6 +32,9 @@
                 @Html.DropDownListFor(model => model.itemName, (SelectList)ViewBag.itemList)
 
             </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add new item" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "ServiceItems") + "'");" />
+            </div>
         </div>
 
         <div class="form-group">
@@ -36,6 +42,9 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.serviceName, (SelectList)ViewBag.serviceList)
 
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add new service" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "Services") + "'");" />
             </div>
         </div>
 
