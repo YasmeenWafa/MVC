@@ -6,7 +6,7 @@ using System.Web;
 
 namespace tryMVC.Models
 {
-    public class DBContextInit : DropCreateDatabaseAlways<DBContext>
+    public class DBContextInit : DropCreateDatabaseIfModelChanges<DBContext>
     {
         protected override void Seed(DBContext context)
         {

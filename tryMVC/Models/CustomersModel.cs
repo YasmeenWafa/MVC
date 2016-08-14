@@ -31,7 +31,7 @@ namespace tryMVC.Models
         public string customerEmail { get; set; }
         [Display(Name = "Phone Number")]
 
-        public int phoneNumber { get; set; }
+        public string phoneNumber { get; set; }
 
         [Required(ErrorMessage = "Please enter your country's name")]
         [Display(Name = "Country")]

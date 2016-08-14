@@ -48,7 +48,7 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,nationalityName")] CustomersModel customersModel)
+        public ActionResult Create([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,nationalityName,phoneNumber")] CustomersModel customersModel)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail")] CustomersModel customersModel)
+        public ActionResult Edit([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,phoneNumber")] CustomersModel customersModel)
         {
             if (ModelState.IsValid)
             {

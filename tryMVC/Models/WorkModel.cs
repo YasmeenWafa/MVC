@@ -13,7 +13,7 @@ namespace tryMVC.Models
 
         [Required(ErrorMessage ="Please enter the price")]
         [Display (Name = "Price")]
-        public double price;
+        public string price;
 
         //service foreign
         [Required(ErrorMessage = "Please enter service's name")]
