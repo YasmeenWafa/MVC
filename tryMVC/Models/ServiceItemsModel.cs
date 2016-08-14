@@ -13,5 +13,6 @@ namespace tryMVC.Models
         [Required(ErrorMessage ="Please enter the vehicle's type")]
         [Display(Name = "Item Name")]
         public string serviceItemName { get; set; }
+        //public virtual List <ServicesModel> services { get; set; }
     }
 }
