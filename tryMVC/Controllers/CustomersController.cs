@@ -40,7 +40,7 @@ namespace tryMVC.Controllers
         {
             ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
             return View();
-         
+
         }
 
         // POST: Customers/Create

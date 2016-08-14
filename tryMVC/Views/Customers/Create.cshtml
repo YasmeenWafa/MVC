@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -65,7 +65,7 @@
             @Html.LabelFor(model => model.nationalityName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.nationalityName, (SelectList)ViewBag.nationalityList)
-          
+
             </div>
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Add new nationality" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "Nationalities") + "'");" />
