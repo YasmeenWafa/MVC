@@ -10,14 +10,53 @@ using tryMVC.Models;
 
 namespace tryMVC.Controllers
 {
+
+
+    public class WorkLogic
+    {
+        public DBContext db = new DBContext();
+
+        public WorkLogic()
+        {
+
+        }
+        public List<WorkModel> ToList()
+        {
+            return db.Work.ToList();
+        }
+
+        public WorkModel find(int? id)
+        {
+            return db.Work.Find(id);
+        }
+        public void create(WorkModel workModel)
+        {
+            db.Work.Add(workModel);
+            db.SaveChanges();
+        }
+        public void edit(WorkModel workModel)
+        {
+            db.Entry(workModel).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+        public void remove(WorkModel workModel)
+        {
+            db.Work.Remove(workModel);
+            db.SaveChanges();
+        }
+    }
+
+
+
     public class WorkController : Controller
     {
-        private DBContext db = new DBContext();
-
+        //private DBContext db = new DBContext();
+       public  WorkLogic wl = new WorkLogic();
         // GET: Work
         public ActionResult Index()
         {
-            return View(db.Work.ToList());
+            return View(wl.ToList());
         }
 
         // GET: Work/Details/5
@@ -27,7 +66,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WorkModel workModel = db.Work.Find(id);
+            WorkModel workModel = wl.find(id);
             if (workModel == null)
             {
                 return HttpNotFound();
@@ -38,9 +77,9 @@ namespace tryMVC.Controllers
         // GET: Work/Create
         public ActionResult Create()
         {
-            ViewBag.customerList = new SelectList(db.Customers, "customerName", "customerName");
-            ViewBag.itemList = new SelectList(db.ServiceItems, "serviceItemName", "serviceItemName");
-            ViewBag.serviceList = new SelectList(db.Services, "serviceName", "serviceName");
+            ViewBag.customerList = new SelectList(wl.db.Customers, "customerName", "customerName");
+            ViewBag.itemList = new SelectList(wl.db.ServiceItems, "serviceItemName", "serviceItemName");
+            ViewBag.serviceList = new SelectList(wl.db.Services, "serviceName", "serviceName");
             
             return View();
         }
@@ -54,8 +93,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Work.Add(workModel);
-                db.SaveChanges();
+                wl.create(workModel);
                 return RedirectToAction("Index");
             }
 
@@ -69,11 +107,14 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WorkModel workModel = db.Work.Find(id);
+            WorkModel workModel = wl.find(id);
             if (workModel == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.customerList = new SelectList(wl.db.Customers, "customerName", "customerName");
+            ViewBag.itemList = new SelectList(wl.db.ServiceItems, "serviceItemName", "serviceItemName");
+            ViewBag.serviceList = new SelectList(wl.db.Services, "serviceName", "serviceName");
             return View(workModel);
         }
 
@@ -86,8 +127,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(workModel).State = EntityState.Modified;
-                db.SaveChanges();
+                wl.edit(workModel);
                 return RedirectToAction("Index");
             }
             return View(workModel);
@@ -100,7 +140,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            WorkModel workModel = db.Work.Find(id);
+            WorkModel workModel = wl.find(id);
             if (workModel == null)
             {
                 return HttpNotFound();
@@ -113,9 +153,8 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            WorkModel workModel = db.Work.Find(id);
-            db.Work.Remove(workModel);
-            db.SaveChanges();
+            WorkModel workModel = wl.find(id);
+            wl.remove(workModel);
             return RedirectToAction("Index");
         }
 
@@ -123,7 +162,7 @@ namespace tryMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                wl.db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -10,14 +10,51 @@ using tryMVC.Models;
 
 namespace tryMVC.Controllers
 {
+
+
+    public class ServicesLogic
+    {
+        public DBContext db = new DBContext();
+
+        public ServicesLogic()
+        {
+
+        }
+        public List<ServicesModel> ToList()
+        {
+            return db.Services.ToList();
+        }
+
+        public ServicesModel find(int? id)
+        {
+            return db.Services.Find(id);
+        }
+        public void create(ServicesModel servicesModel)
+        {
+            db.Services.Add(servicesModel);
+            db.SaveChanges();
+        }
+        public void edit(ServicesModel servicesModel)
+        {
+            db.Entry(servicesModel).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+        public void remove(ServicesModel servicesModel)
+        {
+            db.Services.Remove(servicesModel);
+            db.SaveChanges();
+        }
+    }
+
     public class ServicesController : Controller
     {
-        private DBContext db = new DBContext();
-
+        // private DBContext db = new DBContext();
+        public ServicesLogic sl = new ServicesLogic();
         // GET: Services
         public ActionResult Index()
         {
-            return View(db.Services.ToList());
+            return View(sl.ToList());
         }
 
         // GET: Services/Details/5
@@ -27,7 +64,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServicesModel servicesModel = db.Services.Find(id);
+            ServicesModel servicesModel = sl.find(id);
             if (servicesModel == null)
             {
                 return HttpNotFound();
@@ -50,8 +87,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Services.Add(servicesModel);
-                db.SaveChanges();
+                sl.create(servicesModel);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +101,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServicesModel servicesModel = db.Services.Find(id);
+            ServicesModel servicesModel = sl.find(id);
             if (servicesModel == null)
             {
                 return HttpNotFound();
@@ -82,8 +118,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(servicesModel).State = EntityState.Modified;
-                db.SaveChanges();
+                sl.edit(servicesModel);
                 return RedirectToAction("Index");
             }
             return View(servicesModel);
@@ -96,7 +131,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServicesModel servicesModel = db.Services.Find(id);
+            ServicesModel servicesModel = sl.find(id);
             if (servicesModel == null)
             {
                 return HttpNotFound();
@@ -109,9 +144,8 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ServicesModel servicesModel = db.Services.Find(id);
-            db.Services.Remove(servicesModel);
-            db.SaveChanges();
+            ServicesModel servicesModel = sl.find(id);
+            sl.remove(servicesModel);
             return RedirectToAction("Index");
         }
 
@@ -119,7 +153,7 @@ namespace tryMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                sl.db.Dispose();
             }
             base.Dispose(disposing);
         }

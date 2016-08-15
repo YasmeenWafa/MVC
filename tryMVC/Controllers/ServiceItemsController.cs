@@ -10,14 +10,52 @@ using tryMVC.Models;
 
 namespace tryMVC.Controllers
 {
+
+
+    public class ServiceItemsLogic
+    {
+        public DBContext db = new DBContext();
+
+        public ServiceItemsLogic()
+        {
+
+        }
+        public List<ServiceItemsModel> ToList()
+        {
+            return db.ServiceItems.ToList();
+        }
+
+        public ServiceItemsModel find(int? id)
+        {
+            return db.ServiceItems.Find(id);
+        }
+        public void create(ServiceItemsModel serviceItemsModel)
+        {
+            db.ServiceItems.Add(serviceItemsModel);
+            db.SaveChanges();
+        }
+        public void edit(ServiceItemsModel serviceItemsModel)
+        {
+            db.Entry(serviceItemsModel).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+        public void remove(ServiceItemsModel serviceItemsModel)
+        {
+            db.ServiceItems.Remove(serviceItemsModel);
+            db.SaveChanges();
+        }
+    }
+
+
     public class ServiceItemsController : Controller
     {
-        private DBContext db = new DBContext();
-
+        //private DBContext db = new DBContext();
+        public ServiceItemsLogic sil = new ServiceItemsLogic();
         // GET: ServiceItems
         public ActionResult Index()
         {
-            return View(db.ServiceItems.ToList());
+            return View(sil.ToList());
         }
 
         // GET: ServiceItems/Details/5
@@ -27,7 +65,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceItemsModel serviceItemsModel = db.ServiceItems.Find(id);
+            ServiceItemsModel serviceItemsModel = sil.find(id);
             if (serviceItemsModel == null)
             {
                 return HttpNotFound();
@@ -50,8 +88,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ServiceItems.Add(serviceItemsModel);
-                db.SaveChanges();
+                sil.create(serviceItemsModel);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +102,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceItemsModel serviceItemsModel = db.ServiceItems.Find(id);
+            ServiceItemsModel serviceItemsModel =sil.find(id);
             if (serviceItemsModel == null)
             {
                 return HttpNotFound();
@@ -82,8 +119,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(serviceItemsModel).State = EntityState.Modified;
-                db.SaveChanges();
+                sil.edit(serviceItemsModel);
                 return RedirectToAction("Index");
             }
             return View(serviceItemsModel);
@@ -96,7 +132,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ServiceItemsModel serviceItemsModel = db.ServiceItems.Find(id);
+            ServiceItemsModel serviceItemsModel = sil.find(id);
             if (serviceItemsModel == null)
             {
                 return HttpNotFound();
@@ -109,9 +145,8 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ServiceItemsModel serviceItemsModel = db.ServiceItems.Find(id);
-            db.ServiceItems.Remove(serviceItemsModel);
-            db.SaveChanges();
+            ServiceItemsModel serviceItemsModel = sil.find(id);
+            sil.remove(serviceItemsModel);
             return RedirectToAction("Index");
         }
 
@@ -119,7 +154,7 @@ namespace tryMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                sil.db.Dispose();
             }
             base.Dispose(disposing);
         }

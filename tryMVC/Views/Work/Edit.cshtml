@@ -18,27 +18,30 @@
         @Html.HiddenFor(model => model.workID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.serviceName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.customerName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.serviceName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.serviceName, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.customerName, (SelectList)ViewBag.customerList)
+
             </div>
+          
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.itemName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.itemName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.itemName, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.itemName, (SelectList)ViewBag.itemList)
+
             </div>
+            
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.customerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.serviceName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.customerName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.customerName, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.serviceName, (SelectList)ViewBag.serviceList)
+
             </div>
+           
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })

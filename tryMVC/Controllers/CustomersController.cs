@@ -9,15 +9,51 @@ using System.Web.Mvc;
 using tryMVC.Models;
 
 namespace tryMVC.Controllers
+
 {
+
+    public class CustomersLogic
+    {
+        public DBContext db = new DBContext();
+
+        public CustomersLogic()
+        {
+
+        }
+        public List<CustomersModel> ToList()
+        {
+          return db.Customers.ToList();
+        }
+
+        public CustomersModel find(int? id)
+        {
+           return  db.Customers.Find(id);
+        }
+        public void create (CustomersModel customersModel)
+        {
+            db.Customers.Add(customersModel);
+            db.SaveChanges();
+        }
+        public void edit(CustomersModel customersModel)
+        {
+            db.Entry(customersModel).State = EntityState.Modified;
+            db.SaveChanges();
+            
+        }
+        public void remove(CustomersModel customersModel)
+        {
+            db.Customers.Remove(customersModel);
+            db.SaveChanges();
+        }
+    }
     public class CustomersController : Controller
     {
-        private DBContext db = new DBContext();
-
+        //  private DBContext db = new DBContext();
+        public CustomersLogic cl = new CustomersLogic();
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(cl.ToList());
         }
 
         // GET: Customers/Details/5
@@ -27,7 +63,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
+            CustomersModel customersModel = cl.find(id);
             if (customersModel == null)
             {
                 return HttpNotFound();
@@ -38,7 +74,7 @@ namespace tryMVC.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
+            ViewBag.nationalityList = new SelectList(cl.db.Nationalities, "nationalityName", "nationalityName");
             return View();
 
         }
@@ -52,8 +88,8 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customersModel);
-                db.SaveChanges();
+                cl.create(customersModel);
+              
                 return RedirectToAction("Index");
             }
 
@@ -67,12 +103,12 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
+            CustomersModel customersModel = cl.find(id);
             if (customersModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
+            ViewBag.nationalityList = new SelectList(cl.db.Nationalities, "nationalityName", "nationalityName");
             return View(customersModel);
         }
 
@@ -85,8 +121,7 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customersModel).State = EntityState.Modified;
-                db.SaveChanges();
+                cl.edit(customersModel);
                 return RedirectToAction("Index");
             }
             return View(customersModel);
@@ -99,7 +134,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CustomersModel customersModel = db.Customers.Find(id);
+            CustomersModel customersModel = cl.find(id);
             if (customersModel == null)
             {
                 return HttpNotFound();
@@ -112,9 +147,8 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CustomersModel customersModel = db.Customers.Find(id);
-            db.Customers.Remove(customersModel);
-            db.SaveChanges();
+            CustomersModel customersModel =cl.find(id);
+            cl.remove(customersModel);
             return RedirectToAction("Index");
         }
 
@@ -122,7 +156,7 @@ namespace tryMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                cl.db.Dispose();
             }
             base.Dispose(disposing);
         }
