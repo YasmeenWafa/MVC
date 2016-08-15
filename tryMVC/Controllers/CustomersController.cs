@@ -72,6 +72,7 @@ namespace tryMVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.nationalityList = new SelectList(db.Nationalities, "nationalityName", "nationalityName");
             return View(customersModel);
         }
 
@@ -80,7 +81,7 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,phoneNumber")] CustomersModel customersModel)
+        public ActionResult Edit([Bind(Include = "customerID,customerName,customerAddress,customerAge,gender,customerEmail,phoneNumber,nationalityName")] CustomersModel customersModel)
         {
             if (ModelState.IsValid)
             {
