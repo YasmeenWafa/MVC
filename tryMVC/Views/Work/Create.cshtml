@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.serviceName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.serviceName, (MultiSelectList)ViewBag.serviceList)
+                @Html.DropDownListFor(model => model.serviceName, (SelectList)ViewBag.serviceList)
 
             </div>
             <div class="col-md-offset-2 col-md-10">
