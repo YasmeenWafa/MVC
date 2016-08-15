@@ -10,14 +10,52 @@ using tryMVC.Models;
 
 namespace tryMVC.Controllers
 {
+
+
+    public class NationalitiesLogic
+    {
+        public DBContext db = new DBContext();
+
+        public NationalitiesLogic()
+        {
+
+        }
+        public List<NationalitiesModel> ToList()
+        {
+            return db.Nationalities.ToList();
+        }
+
+        public NationalitiesModel find(int? id)
+        {
+            return db.Nationalities.Find(id);
+        }
+        public void create(NationalitiesModel nationalitiesModel)
+        {
+            db.Nationalities.Add(nationalitiesModel);
+            db.SaveChanges();
+        }
+        public void edit(NationalitiesModel nationalitiesModel)
+        {
+            db.Entry(nationalitiesModel).State = EntityState.Modified;
+            db.SaveChanges();
+
+        }
+        public void remove(NationalitiesModel nationalitiesModel)
+        {
+            db.Nationalities.Remove(nationalitiesModel);
+            db.SaveChanges();
+        }
+    }
+
+
     public class NationalitiesController : Controller
     {
-        private DBContext db = new DBContext();
-
+       // private DBContext db = new DBContext();
+        public NationalitiesLogic nl = new NationalitiesLogic();
         // GET: Nationalities
         public ActionResult Index()
         {
-            return View(db.Nationalities.ToList());
+            return View(nl.ToList());
         }
 
         // GET: Nationalities/Details/5
@@ -27,7 +65,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NationalitiesModel nationalitiesModel = db.Nationalities.Find(id);
+            NationalitiesModel nationalitiesModel = nl.find(id);
             if (nationalitiesModel == null)
             {
                 return HttpNotFound();
@@ -38,7 +76,7 @@ namespace tryMVC.Controllers
         // GET: Nationalities/Create
         public ActionResult Create()
         {
-              ViewBag.nationalityList = new SelectList(db.AllNationalities, "nationalityName", "nationalityName");
+              ViewBag.nationalityList = new SelectList(nl.db.AllNationalities, "nationalityName", "nationalityName");
 
             return View();
         }
@@ -52,14 +90,13 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                if ((db.Nationalities.Any(ac => ac.nationalityName.Equals(nationalitiesModel.nationalityName))) )
+                if ((nl.db.Nationalities.Any(ac => ac.nationalityName.Equals(nationalitiesModel.nationalityName))) )
    {
                     //TODO E.g. ModelState.AddModelError
 
                     return RedirectToAction("Create");
                 }
-                db.Nationalities.Add(nationalitiesModel);
-                db.SaveChanges();
+                nl.create(nationalitiesModel);
                 return RedirectToAction("Index");
             }
 
@@ -75,7 +112,7 @@ namespace tryMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NationalitiesModel nationalitiesModel = db.Nationalities.Find(id);
+            NationalitiesModel nationalitiesModel = nl.find(id);
             if (nationalitiesModel == null)
             {
                 return HttpNotFound();
@@ -88,9 +125,8 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            NationalitiesModel nationalitiesModel = db.Nationalities.Find(id);
-            db.Nationalities.Remove(nationalitiesModel);
-            db.SaveChanges();
+            NationalitiesModel nationalitiesModel = nl.find(id);
+            nl.remove(nationalitiesModel);
             return RedirectToAction("Index");
         }
 
@@ -98,7 +134,7 @@ namespace tryMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                nl.db.Dispose();
             }
             base.Dispose(disposing);
         }
