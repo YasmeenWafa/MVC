@@ -14,5 +14,7 @@ namespace tryMVC.Models
         [Required(ErrorMessage ="Please enter the Service Name")]
         [Display(Name = "Service Name")]
         public string serviceName { get; set; }
+
+      //  public  virtual List<ServiceItemsModel> items { get; set; }
     }
 }
