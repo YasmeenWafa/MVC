@@ -18,19 +18,19 @@ namespace tryMVC.Models
         //service foreign
         [Required(ErrorMessage = "Please enter service's name")]
         [Display(Name = "Service")]
-        public virtual string serviceName { get; set; }
+        public virtual ICollection<ServicesModel> service { get; set; }
 
 
         //service item foreign
         [Required(ErrorMessage = "Please enter item's name")]
         [Display(Name = "Item Name")]
-        public virtual string itemName { get; set; }
+        public virtual ServiceItemsModel item { get; set; }
 
 
         //customer name foreign
         [Required(ErrorMessage = "Please enter customer's name")]
         [Display(Name = "Customer Name")]
-        public virtual string customerName { get; set; } 
+        public virtual CustomersModel customer { get; set; } 
 
 
     }

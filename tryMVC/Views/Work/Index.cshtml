@@ -11,15 +11,15 @@
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.service)
+        </th>
         
         <th>
-            @Html.DisplayNameFor(model => model.serviceName)
+            @Html.DisplayNameFor(model => model.item)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.itemName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.customerName)
+            @Html.DisplayNameFor(model => model.customer)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.price)
@@ -30,14 +30,20 @@
 @foreach (var item in Model) {
     <tr>
       
+       <td>
+           @if (item.service != null)
+           {
+           foreach (var item1 in item.service)
+           {
+               @Html.DisplayFor(modelItem => item1.serviceName)<br />
+           }}
+       </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.serviceName)
+            @Html.DisplayFor(modelItem => item.item.serviceItemName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.itemName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.customerName)
+            @Html.DisplayFor(modelItem => item.customer.customerName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.price)

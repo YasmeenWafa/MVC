@@ -18,29 +18,26 @@
         @Html.HiddenFor(model => model.workID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.customerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.customer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.customerName, (SelectList)ViewBag.customerList)
+                @Html.DropDownListFor(model => model.customer, (SelectList)ViewBag.customer)
 
             </div>
           
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.itemName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.itemName, (SelectList)ViewBag.itemList)
+           @Html.LabelFor(model => model.item, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.item, (SelectList)ViewBag.item)
 
-            </div>
+        </div>
             
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.serviceName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.serviceName, (SelectList)ViewBag.serviceList)
-
-            </div>
+            @Html.LabelFor(model => model.service, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-offset-2 col-md-10"> @Html.ListBox("service")</div>
            
         </div>
         <div class="form-group">
@@ -66,3 +63,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#service').select2();
+    });
+</script>

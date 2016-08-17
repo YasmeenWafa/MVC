@@ -16,9 +16,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.customerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.customer, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.customerName, (SelectList)ViewBag.customerList)
+                @Html.DropDownListFor(model => model.customer, (SelectList)ViewBag.customer)
 
             </div>
             <div class="col-md-offset-2 col-md-10">
@@ -27,9 +27,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.itemName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.item, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.itemName, (SelectList)ViewBag.itemList)
+                @Html.DropDownListFor(model => model.item, (SelectList)ViewBag.item)
 
             </div>
             <div class="col-md-offset-2 col-md-10">
@@ -38,11 +38,8 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.serviceName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.serviceName, (SelectList)ViewBag.serviceList)
-
-            </div>
+             @Html.LabelFor(model=>model.service, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-offset-2 col-md-10"> @Html.ListBox("service")</div>
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Add new service" class="btn btn-default" onclick="@("window.location.href='" + @Url.Action("Create", "Services") + "'");" />
             </div>
@@ -71,3 +68,9 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#service').select2();
+    });
+</script>
