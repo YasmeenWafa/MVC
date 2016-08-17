@@ -224,6 +224,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\select2.css" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\select2.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -304,6 +308,8 @@
     <Content Include="Views\Work\Details.cshtml" />
     <Content Include="Views\Work\Edit.cshtml" />
     <Content Include="Views\Work\Index.cshtml" />
+    <Content Include="Views\ServiceItems\Error.cshtml" />
+    <Content Include="Views\Services\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

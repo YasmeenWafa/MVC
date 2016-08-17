@@ -22,7 +22,8 @@ namespace tryMVC.Controllers
         }
         public List<WorkModel> ToList()
         {
-            return db.Work.ToList();
+            
+            return db.Work.ToList<WorkModel>();
         }
 
         public WorkModel find(int? id)
@@ -31,8 +32,10 @@ namespace tryMVC.Controllers
         }
         public void create(WorkModel workModel)
         {
+            
             db.Work.Add(workModel);
             db.SaveChanges();
+             
         }
         public void edit(WorkModel workModel)
         {
@@ -56,7 +59,7 @@ namespace tryMVC.Controllers
         // GET: Work
         public ActionResult Index()
         {
-            return View(wl.ToList());
+            return View(wl.db.Work.ToList());
         }
 
         // GET: Work/Details/5
@@ -77,9 +80,9 @@ namespace tryMVC.Controllers
         // GET: Work/Create
         public ActionResult Create()
         {
-            ViewBag.customerList = new SelectList(wl.db.Customers, "customerName", "customerName");
-            ViewBag.itemList = new SelectList(wl.db.ServiceItems, "serviceItemName", "serviceItemName");
-            ViewBag.serviceList = new SelectList(wl.db.Services, "serviceName", "serviceName");
+            ViewBag.customer = new SelectList(wl.db.Customers, "customerID", "customerName");
+            ViewBag.item = new SelectList(wl.db.ServiceItems, "serviceItemID", "serviceItemName");
+            ViewBag.service = new MultiSelectList(wl.db.Services, "serviceID", "serviceName");
             
             return View();
         }
@@ -89,15 +92,35 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "workID,price,serviceName,itemName,customerName")] WorkModel workModel)
+        public ActionResult Create(WorkModel workModel, int [] service,int customer,int item)
         {
-            if (ModelState.IsValid)
+
+            if(service!=null)
             {
-                wl.create(workModel);
-                return RedirectToAction("Index");
+                foreach(var id in service)
+                {
+                    ServicesModel ser = wl.db.Services.Find(id);
+                    workModel.service.Add(ser);
+                }
+            }
+      
+            if(customer != 0)
+            {
+                CustomersModel cm = wl.db.Customers.Find(customer);
+                workModel.customer = cm;
+            }
+            if (item != 0)
+            {
+                ServiceItemsModel sim = wl.db.ServiceItems.Find(item);
+                workModel.item = sim;
             }
 
-            return View(workModel);
+
+            wl.create(workModel);
+               
+                return RedirectToAction("Index",wl.db.Work);
+           
+
         }
 
         // GET: Work/Edit/5
@@ -112,10 +135,13 @@ namespace tryMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.customerList = new SelectList(wl.db.Customers, "customerName", "customerName");
-            ViewBag.itemList = new SelectList(wl.db.ServiceItems, "serviceItemName", "serviceItemName");
-            ViewBag.serviceList = new SelectList(wl.db.Services, "serviceName", "serviceName");
-            return View(workModel);
+
+           // ViewBag.customer = new SelectList(wl.db.Customers, "customerID", "customerName");
+            ViewBag.item = new SelectList(wl.db.ServiceItems, "serviceItemID", "serviceItemName");
+            ViewBag.service = new MultiSelectList(wl.db.Services, "serviceID", "serviceName");
+
+
+            return View();
         }
 
         // POST: Work/Edit/5
@@ -123,14 +149,38 @@ namespace tryMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "workID,price,serviceName,itemName,customerName")] WorkModel workModel)
+        public ActionResult Edit(WorkModel workModel, int[] service, int customer, int item)
         {
             if (ModelState.IsValid)
             {
+                if (service != null)
+            {
+                foreach (var id in service)
+                {
+                    ServicesModel ser = wl.db.Services.Find(id);
+                    workModel.service.Add(ser);
+                }
+            }
+
+                if (customer != 0)
+                {
+                    CustomersModel cm = wl.db.Customers.Find(customer);
+                    workModel.customer = cm;
+                }
+                if (item != 0)
+                {
+                    ServiceItemsModel sim = wl.db.ServiceItems.Find(item);
+                    workModel.item = sim;
+                }
+
+
                 wl.edit(workModel);
                 return RedirectToAction("Index");
             }
             return View(workModel);
+
+
+
         }
 
         // GET: Work/Delete/5

@@ -87,6 +87,16 @@ namespace tryMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                List<ServicesModel> allItems = sl.ToList();
+                foreach (var item in allItems)
+                {
+                    if (item.serviceName.Equals(servicesModel.serviceName))
+                    {
+
+                        return View("Error", servicesModel);
+                    }
+                }
                 sl.create(servicesModel);
                 return RedirectToAction("Index");
             }

@@ -18,27 +18,33 @@
             @Html.DisplayFor(model => model.price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.serviceName)
+            @Html.DisplayNameFor(model => model.service)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.serviceName)
+            @if (Model.service != null)
+            {
+                foreach (var item1 in Model.service)
+                {
+               @Html.DisplayFor(modelItem => item1.serviceName) <br />
+                }
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.itemName)
+            @Html.DisplayNameFor(model => model.item)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.itemName)
+            @Html.DisplayFor(model => model.item.serviceItemName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.customerName)
+            @Html.DisplayNameFor(model => model.customer)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.customerName)
+            @Html.DisplayFor(model => model.customer.customerName)
         </dd>
        
 

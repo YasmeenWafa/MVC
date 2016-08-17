@@ -15,6 +15,6 @@ namespace tryMVC.Models
         [Display(Name = "Service Name")]
         public string serviceName { get; set; }
 
-      //  public  virtual List<ServiceItemsModel> items { get; set; }
+        public virtual ICollection<WorkModel> work { get; set; }
     }
 }

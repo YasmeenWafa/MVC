@@ -31,6 +31,7 @@ namespace tryMVC.Controllers
         }
         public void create(ServiceItemsModel serviceItemsModel)
         {
+
             db.ServiceItems.Add(serviceItemsModel);
             db.SaveChanges();
         }
@@ -87,7 +88,19 @@ namespace tryMVC.Controllers
         public ActionResult Create([Bind(Include = "serviceItemID,serviceItemName")] ServiceItemsModel serviceItemsModel)
         {
             if (ModelState.IsValid)
+
             {
+                List<ServiceItemsModel> allItems = sil.ToList();
+                foreach(var item in allItems)
+                {
+                    if(item.serviceItemName.Equals(serviceItemsModel.serviceItemName))
+                    {
+                        
+                        return View("Error",serviceItemsModel);
+                    }
+                }
+                    
+                
                 sil.create(serviceItemsModel);
                 return RedirectToAction("Index");
             }
