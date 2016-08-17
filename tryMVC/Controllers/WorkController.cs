@@ -136,12 +136,12 @@ namespace tryMVC.Controllers
                 return HttpNotFound();
             }
 
-           // ViewBag.customer = new SelectList(wl.db.Customers, "customerID", "customerName");
+            ViewBag.customer = new SelectList(wl.db.Customers, "customerID", "customerName");
             ViewBag.item = new SelectList(wl.db.ServiceItems, "serviceItemID", "serviceItemName");
             ViewBag.service = new MultiSelectList(wl.db.Services, "serviceID", "serviceName");
 
 
-            return View();
+            return View(workModel);
         }
 
         // POST: Work/Edit/5
@@ -151,8 +151,7 @@ namespace tryMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(WorkModel workModel, int[] service, int customer, int item)
         {
-            if (ModelState.IsValid)
-            {
+           
                 if (service != null)
             {
                 foreach (var id in service)
@@ -176,8 +175,7 @@ namespace tryMVC.Controllers
 
                 wl.edit(workModel);
                 return RedirectToAction("Index");
-            }
-            return View(workModel);
+            
 
 
 
