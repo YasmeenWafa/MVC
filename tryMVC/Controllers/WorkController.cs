@@ -39,7 +39,22 @@ namespace tryMVC.Controllers
         }
         public void edit(WorkModel workModel)
         {
-            db.Entry(workModel).State = EntityState.Modified;
+
+            ICollection<ServicesModel> temp = new List<ServicesModel>();
+            foreach(var s in db.Work.Find(workModel.workID).service)
+            {
+                temp.Add(s);
+            }
+            foreach(var item in temp)
+            {
+                db.Work.Find(workModel.workID).service.Remove(item);
+            }
+            db.Work.Find(workModel.workID).service = workModel.service;
+            db.Work.Find(workModel.workID).customer = workModel.customer;
+            db.Work.Find(workModel.workID).item = workModel.item;
+            db.Work.Find(workModel.workID).price = workModel.price;
+
+            //db.Entry(workModel).State = EntityState.Modified;
             db.SaveChanges();
 
         }
